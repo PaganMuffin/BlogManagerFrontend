@@ -15,7 +15,7 @@ const App = () => {
         tokenValidate(token)
             .then(x => {
                 if(x){
-                    if(!location.pathname == "dashboard")
+                    if(location.pathname !== "/dashboard")
                         navigate('/dashboard');
                 } else {
                     navigate('/auth/login');

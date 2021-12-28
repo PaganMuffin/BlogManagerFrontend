@@ -56,7 +56,7 @@ export const Dashboard = () => {
                 <div className="flex justify-center items-center h-24 w-full bg-blue-500">
                     PANEL NA GGORZZE
                 </div>
-                <div className="p-20">
+                <div className="px-20 mt-5">
                     <Panels/>
 
                 </div>

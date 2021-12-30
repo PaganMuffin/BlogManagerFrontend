@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import { deleteBlog, getBlogs } from "../../functions/blogs"
+import { DeleteIcon, ExternalIcon } from "../../icons"
 import { CreateBlogDialog } from "./CreateBlogDialog"
 import { EditBlogDialog } from "./EditBlogDialog"
 
@@ -39,15 +41,26 @@ export const Blogs = (props) => {
         return (
             
             <div className="flex flex-row w-full text-center ">
-                <div className="flex flex-row w-4/6">
+                <div className="flex flex-row w-5/6">
                     <span   className="min-w-48 w-full">{data.title}</span>
                     <span   className="min-w-32 w-full">{data.author_name}</span>
                     <span   className="min-w-48 w-full">{data.name}</span>
+                    <a      className="w-full min-w-48" href={`${process.env.REACT_APP_API_URL}/file/${data.banner}`}  target="_blank" >
+                        <div className="flex flex-row justify-center items-start ">
+                            <span>
+                                Banner
+                            </span>
+                            <ExternalIcon/>
+                        </div>
+                    </a>
+           
+
                 </div>
-                <div className="flex flex-row w-1/6 ml-auto">
-                    <button className="min-w-max px-1 w-full bg-green-200" onClick={() => onDelete(data.id)} >Usuń</button>
-                    <button className="min-w-max px-1 w-full bg-green-200"  >Edytuj baner</button>
-                    <EditBlogDialog/>
+                <div className="flex w-1/6 flex-row-reverse">
+                    <button className="px-1 h-full" onClick={() => onDelete(data.id)} >
+                        <DeleteIcon/>
+                    </button>
+                    <EditBlogDialog setBlogsHandler={setBlogs} blogId={data.id}/>
                 </div>
             </div>
         )
@@ -62,7 +75,7 @@ export const Blogs = (props) => {
                 <div className="text-black bg-slate-300 rounded-t-lg mt-5">
                     
                     <div className="flex flex-row w-full text-center font-semibold">
-                        <div className="flex flex-row w-4/6">
+                        <div className="flex flex-row w-5/6">
                             <span className="min-w-48 w-full">
                                 {"Nazwa bloga"}
                             </span>
@@ -71,6 +84,9 @@ export const Blogs = (props) => {
                             </span>
                             <span className="min-w-48 w-full">
                                 {"Adres"}
+                            </span>
+                            <span className="min-w-48 w-full">
+                                {"Banner"}
                             </span>
                         </div>
 

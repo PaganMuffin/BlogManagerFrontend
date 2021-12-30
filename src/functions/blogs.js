@@ -7,7 +7,7 @@ export const getBlogs = async () => {
             "Authorization": "Bearer " + token
         }
     })
-    return f.json()
+    return await f.json()
 }
 
 export const createBlog = async (event, data) => {
@@ -24,7 +24,7 @@ export const createBlog = async (event, data) => {
         },
         body: fd
     })
-    return f.json()
+    return await f.json()
 }
 
 export const deleteBlog = async (id) => {
@@ -38,5 +38,63 @@ export const deleteBlog = async (id) => {
 
     })
 
-    return f.json()
+    return await f.json()
+}
+
+export const getBlog = async (id) => {
+
+    const token = localStorage.getItem('token')
+    const f = await fetch(`${process.env.REACT_APP_API_URL}/api/blogs/${id}`, {
+        method:"GET",
+        headers: {
+            "Authorization": "Bearer " + token
+        },
+
+    })
+    if(f.ok){
+        return await f.json()
+    } else {
+        throw TypeError()
+    }
+}
+
+export const updateBlog = async (event, data, id) => {
+    event.preventDefault();
+    const token = localStorage.getItem('token')
+    const fd = new FormData()
+    fd.append("name", data.name) // slug
+    fd.append("title", data.title) // blog title
+    fd.append("author_name", data.authorName)
+    const f = await fetch(`${process.env.REACT_APP_API_URL}/api/blogs/${id}`, {
+        method:"POST",
+        headers: {
+            "Authorization": "Bearer " + token
+        },
+        body: fd
+    })
+    if(f.ok)
+        return await f.json()
+    else {
+        const j = await f.json()
+        throw TypeError(j.message)
+    }
+}
+
+export const updateBanner = async (e, id, file) => {
+    const fd = new FormData()
+    fd.append()
+
+    const token = localStorage.getItem('token')
+    const f = await fetch(`${process.env.REACT_APP_API_URL}/api/blogs/${id}/banner`, {
+        method:"GET",
+        headers: {
+            "Authorization": "Bearer " + token
+        },
+
+    })
+    if(f.ok){
+        return await f.json()
+    } else {
+        throw TypeError()
+    }
 }

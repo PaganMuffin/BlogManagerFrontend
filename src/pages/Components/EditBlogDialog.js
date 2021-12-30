@@ -1,40 +1,54 @@
 import { Dialog, Transition  } from '@headlessui/react'
 import { useState, Fragment } from 'react'
-import { createBlog, getBlogs } from '../../functions/blogs'
+import { createBlog, getBlog, getBlogs, updateBlog } from '../../functions/blogs'
 import { slugify } from '../../functions/utils'
+import { EditIcon } from '../../icons'
 
 
-export const EditBlogDialog = ({setBlogsHandler}) => {
+export const EditBlogDialog = ({setBlogsHandler, blogId}) => {
 
     const [isOpen, setIsOpen] = useState(false)
     const [title, setTitle] = useState("")
+    const [authorName, setAuthorName] = useState("")
+    //slug -> slugify(title)
+    
+
 
     const closeModal = () => {
         setIsOpen(false)
       }
     
-    const openModal = () => {
-        setIsOpen(true)
+    const openModal = (id) => {
+        getBlog(id)
+            .then((r) => {
+                setTitle(r.message.title)
+                setAuthorName(r.message.author_name)
+                setIsOpen(true)
+            })
+            .catch((e) => {
+                alert("Nie udało się pobrać informacji o blogu")
+            })
     }
 
     
     const handleSubmit = async (e) => {
         const d = {
-            name: slugify(title),
-            title: title
+            "name":slugify(title),
+            "title":title,
+            "authorName":authorName
         }
-        createBlog(e,d)
-            .then((x) => {
-
+        updateBlog(e,d, blogId)
+            .then((r) => {
+                alert(r.message)
+                
                 getBlogs()
-                    .then((x) => {
-                        setBlogsHandler(x.message)
-                        closeModal()
-                    })
-                    .catch((e) => {
-                        alert(e)
-                    })
-                    
+                .then((x) => {
+                    setBlogsHandler(x.message)
+                    closeModal()
+                })
+                .catch((e) => {
+                    alert(e)
+                })
             })
             .catch((e) => {
                 alert(e.message)
@@ -44,9 +58,11 @@ export const EditBlogDialog = ({setBlogsHandler}) => {
     return (
         <div>
             <button 
-                onClick={openModal}
-                className="min-w-max px-1 w-full bg-green-400"
-            >Edytuj</button>
+                onClick={() => openModal(blogId)}
+                className="px-1 h-full "
+            >
+                <EditIcon/>
+            </button>
             <Transition appear show={isOpen} as={Fragment}>
             <Dialog
               as="div"
@@ -96,9 +112,28 @@ export const EditBlogDialog = ({setBlogsHandler}) => {
                                     <form className='flex flex-col' onSubmit={(e) => {
                                         handleSubmit(e)
                                     }}>
-                                        name/slugify
-                                        title
-                                        author_name
+                                        <label className='mt-5 font-semibold'>Nazwa bloga</label>
+                                        <input
+                                            className="text-black rounded-md px-2 py-1 outline-none"
+                                            value={title}
+                                            onChange={(e) => {
+                                                const t = e.target.value 
+                                                setTitle(t)
+                                            }}
+                                        />
+
+                                        <label className='mt-5 font-semibold'>Adres bloga</label>
+                                        <input disabled className='text-black rounded-md px-2 py-1 outline-none' value={`${document.location.origin}/blog/${slugify(title)}`}/>
+                                        
+                                        <label className='mt-5 font-semibold'>Pseudonim autora</label>
+                                        <input
+                                            className="text-black rounded-md px-2 py-1 outline-none"
+                                            value={authorName}
+                                            onChange={(e) => {
+                                                const t = e.target.value 
+                                                setAuthorName(t)
+                                            }}
+                                        />
 
                                         <input type="submit" value="Zapisz" className='py-1 bg-green-700 mt-4 rounded-md'/>
                                     </form>

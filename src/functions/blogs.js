@@ -80,16 +80,17 @@ export const updateBlog = async (event, data, id) => {
     }
 }
 
-export const updateBanner = async (e, id, file) => {
+export const updateBanner = async (e, blogId, fileId) => {
     const fd = new FormData()
-    fd.append()
+    fd.append("fileId", fileId)
 
     const token = localStorage.getItem('token')
-    const f = await fetch(`${process.env.REACT_APP_API_URL}/api/blogs/${id}/banner`, {
-        method:"GET",
+    const f = await fetch(`${process.env.REACT_APP_API_URL}/api/blogs/${blogId}/banner`, {
+        method:"POST",
         headers: {
             "Authorization": "Bearer " + token
         },
+        body:fd
 
     })
     if(f.ok){

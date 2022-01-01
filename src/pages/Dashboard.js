@@ -1,8 +1,10 @@
 import { useState } from "react"
+import { Route, Routes, useNavigate} from "react-router-dom";
 import { Blogs } from "./Components/Blogs"
+import { Files } from "./Components/Files";
 
 export const Dashboard = () => {
-
+    const nav = useNavigate()
     const [activeTab, setActiveTab] = useState("blogs")
     
     const TabButton = ({ name, id}) => {
@@ -10,8 +12,8 @@ export const Dashboard = () => {
         return (
             <button 
             onClick={() => {
-                console.log(id)
                 setActiveTab(id)
+                nav(`/dashboard/${id}`)
             }}
             className={`
                 ${activeTab == id ? "text-slate-300" : "text-slate-500"}
@@ -22,18 +24,6 @@ export const Dashboard = () => {
                 </span>
             </button>
         )
-    }
-
-    const Panels = () => {
-        if(activeTab == "blogs"){
-            return <Blogs/>
-        } else {
-            return (
-                <div>
-                    NO READY
-                </div>
-            )
-        }
     }
 
     return (
@@ -56,8 +46,12 @@ export const Dashboard = () => {
                 <div className="flex justify-center items-center h-24 w-full bg-blue-500">
                     PANEL NA GGORZZE
                 </div>
-                <div className="px-20 mt-5">
-                    <Panels/>
+                <div className="px-20 mt-5 h-max overflow-auto">
+                    <Routes>
+                        <Route path="/blogs" element={<Blogs/>}/>
+                        <Route path="/files" element={<Files/>}/>
+
+                    </Routes>
 
                 </div>
             </div>

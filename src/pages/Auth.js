@@ -32,7 +32,7 @@ export const Auth = () => {
         if(f.ok){
             const token = f.headers.get("Authorization").split(" ")[1]
             localStorage.setItem('token',token)
-            navigate('/dashboard');
+            navigate('/dashboard/blogs');
 
         } else {
             console.log(await f.json())

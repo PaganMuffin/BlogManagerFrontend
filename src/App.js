@@ -16,16 +16,16 @@ const App = () => {
             .then(x => {
                 if(x){
                     if(location.pathname !== "/dashboard")
-                        navigate('/dashboard');
+                        navigate('/dashboard/blogs');
                 } else {
                     navigate('/auth/login');
                 }
             })
     },[])
   return (
-    <div className="w-screen h-screen ">
+    <div className="w-screen h-screen overflow-hidden">
         <Routes>
-            <Route path="/dashboard" element={<Dashboard/>}/>
+            <Route path="/dashboard/*" element={<Dashboard/>}/>
             <Route path="/auth/:type" element={<Auth/>}/>
         </Routes>
     </div>

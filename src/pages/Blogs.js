@@ -72,7 +72,7 @@ export const Blogs = (props) => {
                 <CreateBlogDialog setBlogsHandler={setBlogs}/>
             </div>
             {blogs.length === 0 ? null : 
-                <div className="text-black bg-slate-300 rounded-t-lg mt-5 last:rounded-b-lg" >
+                <div className="text-black bg-slate-300 rounded-t-lg mt-5 last:rounded-b-lg " >
                     
                     <div className="flex flex-row w-full text-center font-semibold">
                         <div className="flex flex-row w-5/6">

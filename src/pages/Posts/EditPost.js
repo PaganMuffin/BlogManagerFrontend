@@ -1,36 +1,61 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { editPost, getPost } from "../../functions/posts"
+import MDEditor from '@uiw/react-md-editor';
+import { slugify } from '../../functions/utils'
 
 export const EditPost = () => {
 
     const params = useParams()
-    const [post, setPost] = useState({})
+    const [loading, setLoading] = useState(false)
+    const [title, setTitle] = useState("")
+    const [slug, setSlug] = useState("")
+    const [content, setContent] = useState("")
+
     useEffect(() => {
         getPost(params)
-            .then((r) => setPost(r.message))
+            .then((r) => {
+                setTitle(r.message.title)
+                setSlug(r.message.slug)
+                setContent(r.message.content)
+                setLoading(true)
+            })
     }, [])
 
     const editRandomPost = async () => {
-        const r = (Math.random() + 1).toString(36).substring(20);
-        console.log(r)
+
         const d = {
-            slug:"testowy-post-2222",
-            title:"Hejka tu IAB",
-            content:`asklfhajkslfhnasjklfhaskjf \n A simple markdown editor with preview, implemented with React.js and TypeScript. This React Component aims to provide a simple Markdown editor with syntax highlighting support. This is based on \`textarea\` encapsulation, so it does not depend on any modern code editors such as Acs, CodeMirror, Monaco etc.`
+            slug:slugify(title),
+            title:title,
+            content:content
         }
-        editPost(d, params)
-            .then(r => console.log(r))
-            .then(() => window.location.reload())
+
+        console.log(d)
+        //editPost(d, params)
+        //    .then(r => console.log(r))
+        //    .then(() => window.location.reload())
     }
 
+
     return (
-        <div className="text-black">
-            {JSON.stringify(params)}
-            {JSON.stringify(post)}
-            <button className="w-32 h-32 bg-slate-600" onClick={editRandomPost}>
-                Edytuj post randomowo
-            </button>
-        </div>
+        <>
+            {!loading ? null : 
+            <div className="flex flex-col ">
+                <button
+                    onClick={editRandomPost}
+                    className="h-8 w-max px-2 bg-green-600 rounded-md items-end ml-auto"
+                >Utwórz post</button>
+                <div className="text-black">
+                    <p> {title} </p>
+                    <p> {slug} </p>
+                    <MDEditor
+                        value={content}
+                        onChange={setContent}
+                    />
+                </div>
+            </div>
+            
+            }
+        </>
     )
 }

@@ -1,6 +1,7 @@
 import { useDebugValue, useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { createPost } from "../../functions/posts"
+import MDEditor from '@uiw/react-md-editor';
 
 export const NewPost = () => {
 
@@ -9,6 +10,8 @@ export const NewPost = () => {
     useEffect(() => {
         setBlogId(params.blogId)
     }, [])
+
+    const [value, setValue] = useState("**Hello world!!!**");
 
     const createRandomPost = async () => {
         const d = {
@@ -21,10 +24,19 @@ export const NewPost = () => {
     }
 
     return (
-        <div>
-            <button className="w-32 h-32 bg-slate-600 " onClick={createRandomPost}>
-                Create Post
-            </button>
+        <div className="flex flex-col ">
+            <button
+                onClick={createRandomPost} 
+                className="h-8 w-max px-2 bg-green-600 rounded-md items-end ml-auto"
+            >Utwórz post</button>
+            <div className="text-black">
+                <p> Tytuł </p>
+                <p> Slug autor gen </p>
+                <MDEditor
+                    value={value}
+                    onChange={setValue}
+                />
+            </div>
         </div>
     )
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { getPosts, getPostsById } from "../../functions/posts"
+import { PostListTable } from "./Components/PostListTable"
 
 export const PostList = () => {
 
@@ -17,31 +18,14 @@ export const PostList = () => {
     },[])
 
 
-    const Row = ({data}) => {
-        return (
-            
-            <div className="flex flex-row w-full text-center divide-x">
-                <span   className="min-w-48 w-full truncate">{data.title}</span>
-                <span   className="min-w-32 w-full truncate">{data.slug}</span>
-                <span   className="min-w-48 w-full truncate">{data.created_at}</span>
-                <span   className="min-w-48 w-full truncate">{data.updated_at}</span>
-                <Link className="min-w-48 w-full" to={`/dashboard/posts/${params.blogId}/edit/${data.id}`}>
-                    <span>Edytuj post</span>
-                </Link>
-            </div>
-        )
-    }
-
-
     return (
-        <div>
-            <div className="text-black bg-slate-300 rounded-t-lg mt-5 last:rounded-b-lg">
-                {posts.map((x) => {
-                    return (
-                        <Row key={x.id} data={x}/>
-                    )
-                })}
-            </div>
+        <div className="flex flex-col space-y-5">
+            <Link to={`/dashboard/posts/${params.blogId}/new`} className="items-end ml-auto">
+                <button 
+                    className="h-8 w-max px-2 bg-green-600 rounded-md"
+                >Utwórz post</button>
+            </Link>
+            <PostListTable data={posts} />
         </div>
     )
 

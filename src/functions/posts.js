@@ -72,3 +72,16 @@ export const editPost = async (data, {blogId,postId}) => {
     })
     return await f.json()
 }
+
+export const deletePost = async (blogId, postId) => {
+    const token = localStorage.getItem('token')
+    const f = await fetch(`${process.env.REACT_APP_API_URL}/api/posts/${blogId}/${postId}`, {
+        method:"DELETE",
+        headers: {
+            "Authorization": "Bearer " + token
+        },
+
+    })
+
+    return await f.json()
+}

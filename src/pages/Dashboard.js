@@ -34,7 +34,7 @@ export const Dashboard = () => {
     return (
         <div className="text-white flex flex-row w-full h-screen  bg-slate-200">
             <div className="h-full w-64 flex flex-col bg-slate-800">
-                <div className="flex justify-center items-center h-24 w-64 bg-blue-500">
+                <div className="flex justify-center items-center h-16 w-64 bg-blue-500">
                     <span className=" font-bold text-xl z-10">
                         BlogManager
                     </span>
@@ -48,10 +48,10 @@ export const Dashboard = () => {
                 </div>
             </div>
             <div className="h-full w-full">
-                <div className="flex justify-center items-center h-24 w-full bg-blue-500">
+                <div className="flex justify-center items-center h-16 w-full bg-blue-500">
                     PANEL NA GGORZZE
                 </div>
-                <div className="px-20 mt-5 h-max overflow-auto">
+                <div className="px-10 mt-5 h-max">
                     <Routes>
                         <Route path="blogs" element={<Blogs/>}/>
                         <Route path="files" element={<Files/>}/>

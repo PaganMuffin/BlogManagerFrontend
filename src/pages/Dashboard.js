@@ -1,12 +1,17 @@
 import { useState } from "react"
-import { Route, Routes, useNavigate} from "react-router-dom";
-import { Blogs } from "./Components/Blogs"
-import { Files } from "./Components/Files";
+import { Route, Routes, useLocation, useNavigate, useParams} from "react-router-dom";
+import { Blogs } from "./Blogs"
+import { Files } from "./Files";
+import { BlogList } from "./Posts/BlogList";
+import { EditPost } from "./Posts/EditPost";
+import { NewPost } from "./Posts/NewPost";
+import { PostList } from "./Posts/PostList";
 
 export const Dashboard = () => {
     const nav = useNavigate()
     const [activeTab, setActiveTab] = useState("blogs")
-    
+
+
     const TabButton = ({ name, id}) => {
 
         return (
@@ -48,8 +53,13 @@ export const Dashboard = () => {
                 </div>
                 <div className="px-20 mt-5 h-max overflow-auto">
                     <Routes>
-                        <Route path="/blogs" element={<Blogs/>}/>
-                        <Route path="/files" element={<Files/>}/>
+                        <Route path="blogs" element={<Blogs/>}/>
+                        <Route path="files" element={<Files/>}/>
+
+                        <Route path="/posts" element={<BlogList/>}/>
+                        <Route path="/posts/:blogId/new" element={<NewPost/>}/>
+                        <Route path="/posts/:blogId" element={<PostList/>}/>
+                        <Route path="/posts/:blogId/edit/:postId" element={<EditPost/>}/>
 
                     </Routes>
 

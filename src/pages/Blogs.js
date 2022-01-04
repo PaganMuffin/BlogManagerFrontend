@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { deleteBlog, getBlogs } from "../../functions/blogs"
-import { DeleteIcon, ExternalIcon } from "../../icons"
-import { CreateBlogDialog } from "./CreateBlogDialog"
-import { EditBlogDialog } from "./EditBlogDialog"
+import { deleteBlog, getBlogs } from "../functions/blogs"
+import { DeleteIcon, ExternalIcon } from "../icons"
+import { CreateBlogDialog } from "./Components/CreateBlogDialog"
+import { EditBlogDialog } from "./Components/EditBlogDialog"
 
 export const Blogs = (props) => {
     
@@ -72,7 +72,7 @@ export const Blogs = (props) => {
                 <CreateBlogDialog setBlogsHandler={setBlogs}/>
             </div>
             {blogs.length === 0 ? null : 
-                <div className="text-black bg-slate-300 rounded-t-lg mt-5">
+                <div className="text-black bg-slate-300 rounded-t-lg mt-5 last:rounded-b-lg" >
                     
                     <div className="flex flex-row w-full text-center font-semibold">
                         <div className="flex flex-row w-5/6">

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
-import { getFiles } from "../../functions/files"
-import { FileCard } from "./FileCard"
-import { FileUploadDialog } from "./FileUploadDialog"
+import { getFiles } from "../functions/files"
+import { FileCard } from "./Components/FileCard"
+import { FileUploadDialog } from "./Components/FileUploadDialog"
 
 export const Files = () => {
 

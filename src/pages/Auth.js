@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { tokenValidate } from "../functions/auth";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 export const Auth = () => {
     const navigate = useNavigate();
@@ -11,9 +11,8 @@ export const Auth = () => {
     const [loading, setloading] = useState(false)
     const [activeTab, setActiveTab] = useState('login')
 
-
+    const params = useParams()
     useEffect(() => {
-        console.log(location)
         if(location.pathname === "/auth/login")
             setActiveTab("login")
         else
@@ -69,6 +68,7 @@ export const Auth = () => {
             <form onSubmit={login} className="flex flex-col">
                 <label className="mt-3 font-semibold">Adres e-mail</label>
                 <input
+                    autoFocus
                     className="rounded-md px-2 py-1 "
                     type="email" 
                     id="email" 
@@ -105,6 +105,7 @@ export const Auth = () => {
             <form onSubmit={register} className="flex flex-col ">
                 <label className="mt-3 font-semibold">Adres e-mail</label>
                 <input
+                    autoFocus
                     className="rounded-md px-2 py-1 "
                     type="email" 
                     id="email" 

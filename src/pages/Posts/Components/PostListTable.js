@@ -5,7 +5,7 @@ export const PostListTable = ({data}) => {
 
     const params = useParams()
     const Row = ({data}) => {
-        console.log(data)
+
         return (
             <tr>
             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
@@ -71,7 +71,7 @@ export const PostListTable = ({data}) => {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                     {data.map(element => 
-                        <Row data={element}/>
+                        <Row key={element.id} data={element}/>
                     )}
                 </tbody>
                 </table>

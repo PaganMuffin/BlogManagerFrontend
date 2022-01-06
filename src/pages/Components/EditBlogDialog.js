@@ -59,7 +59,7 @@ export const EditBlogDialog = ({setBlogsHandler, blogId}) => {
         <div>
             <button 
                 onClick={() => openModal(blogId)}
-                className="px-1 h-full "
+                className="text-sm text-gray-900"
             >
                 <EditIcon/>
             </button>

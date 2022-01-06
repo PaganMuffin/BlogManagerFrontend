@@ -5,7 +5,7 @@ export const BlogListTable = ({data}) => {
     const params = useParams()
 
     const Row = ({data}) => {
-        console.log(data)
+
         return (
             <tr>
             <td className="px-6 py-4 whitespace-nowrap">
@@ -76,7 +76,9 @@ export const BlogListTable = ({data}) => {
                     </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                    <Row data={data[0]}/>
+                    {data.map(element => 
+                        <Row key={element.id} data={element}/>
+                    )}
                 </tbody>
                 </table>
             </div>

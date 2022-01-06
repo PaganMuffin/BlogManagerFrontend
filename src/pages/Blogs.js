@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { deleteBlog, getBlogs } from "../functions/blogs"
 import { DeleteIcon, ExternalIcon } from "../icons"
+import { BlogTable } from "./Components/BlogTable"
 import { CreateBlogDialog } from "./Components/CreateBlogDialog"
 import { EditBlogDialog } from "./Components/EditBlogDialog"
 
@@ -67,36 +68,12 @@ export const Blogs = (props) => {
     }
 
     return (
-        <div className="flex flex-col w-full ">
+        <div className="flex flex-col w-full space-y-5">
             <div className="ml-auto">
                 <CreateBlogDialog setBlogsHandler={setBlogs}/>
             </div>
             {blogs.length === 0 ? null : 
-                <div className="text-black bg-slate-300 rounded-t-lg mt-5 last:rounded-b-lg " >
-                    
-                    <div className="flex flex-row w-full text-center font-semibold">
-                        <div className="flex flex-row w-5/6">
-                            <span className="min-w-48 w-full">
-                                {"Nazwa bloga"}
-                            </span>
-                            <span className="min-w-32 w-full">
-                                {"Autor"}
-                            </span>
-                            <span className="min-w-48 w-full">
-                                {"Adres"}
-                            </span>
-                            <span className="min-w-48 w-full">
-                                {"Banner"}
-                            </span>
-                        </div>
-
-                    </div>
-                    {blogs.map((x) => {
-                        return (
-                            <Row key={x.id} data={x}/>
-                        )
-                    })}
-                </div>
+                <BlogTable data={blogs} setBlogsHandler={setBlogs} onDelete={onDelete}/>
             }
         </div>
     )

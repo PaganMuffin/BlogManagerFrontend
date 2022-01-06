@@ -30,7 +30,7 @@ export const Files = () => {
                     gridAutoRows: "minmax(min-content, max-content)"
                 }}
             >
-                {files.map((x) => <FileCard data={x} updateFile={updateFiles}/>)}
+                {files.map((x) => <FileCard key={x.id} data={x} updateFile={updateFiles}/>)}
             </div>
         </div>
     )

@@ -28,7 +28,7 @@ export const createPost = async (data, blogId) => {
     const fd = new FormData()
 
     Object.keys(data).forEach(e => {
-            fd.append(e, data[e])
+            fd.append(e,( typeof data[e] !== 'string' ? JSON.stringify(data[e]) : data[e]))
     })
 
     const f = await fetch(`${process.env.REACT_APP_API_URL}/api/posts/${blogId}`, {
@@ -60,7 +60,7 @@ export const editPost = async (data, {blogId,postId}) => {
     const fd = new FormData()
 
     Object.keys(data).forEach(e => {
-            fd.append(e, data[e])
+        fd.append(e,( typeof data[e] !== 'string' ? JSON.stringify(data[e]) : data[e]))
     })
 
     const f = await fetch(`${process.env.REACT_APP_API_URL}/api/posts/${blogId}/${postId}`, {

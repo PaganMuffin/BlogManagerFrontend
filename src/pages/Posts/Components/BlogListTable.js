@@ -8,26 +8,22 @@ export const BlogListTable = ({data}) => {
 
         return (
             <tr>
-            <td className="px-6 py-4 whitespace-nowrap">
-                <div className="flex items-center">
-                <div className="ml-4">
-                    <div className="text-sm font-medium text-gray-900">
-                        {data.title}
-                    </div>
-                </div>
+            <td className="px-6 py-  break-all">
+                <div className="text-sm font-medium text-gray-900">
+                    {data.title}
                 </div>
             </td>
-            <td className="px-6 py-4 whitespace-nowrap">
+            <td className="px-6 py-4 break-all">
                 <div className="text-sm text-gray-900">{data.author_name}</div>
             </td>
-            <td className="px-6 py-4 whitespace-nowrap">
+            <td className="px-6 py-4 break-all">
                 <div className="text-sm text-gray-900">{data.name}</div>
             </td>
             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                <div className="text-sm text-gray-900">{data.created_at}</div>
+                <div className="text-sm text-gray-900">{new Date(data.created_at*1000).toLocaleString('en-GB', { timeZone: 'UTC' })}</div>
             </td>
             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                <div className="text-sm text-gray-900">{data.updated_at}</div>
+                <div className="text-sm text-gray-900">{new Date(data.updated_at*1000).toLocaleString('en-GB', { timeZone: 'UTC' })}</div>
             </td>
             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                 <Link to={`/dashboard/posts/${data.id}`} className="text-indigo-600 hover:text-indigo-900">

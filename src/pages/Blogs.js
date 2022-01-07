@@ -10,7 +10,7 @@ export const Blogs = (props) => {
     
     const [blogs, setBlogs] = useState([])
 
-    useEffect(() => {
+    const updateBlogsList = () => {
         getBlogs()
             .then((x) => {
                 setBlogs(x.message)
@@ -18,6 +18,10 @@ export const Blogs = (props) => {
             .catch((e) => {
                 alert(e)
             })
+    }
+
+    useEffect(() => {
+        updateBlogsList()
     },[])
 
 
@@ -36,36 +40,6 @@ export const Blogs = (props) => {
 
     }
 
-    
-
-    const Row = ({data}) => {
-        return (
-            
-            <div className="flex flex-row w-full text-center ">
-                <div className="flex flex-row w-5/6">
-                    <span   className="min-w-48 w-full">{data.title}</span>
-                    <span   className="min-w-32 w-full">{data.author_name}</span>
-                    <span   className="min-w-48 w-full">{data.name}</span>
-                    <a      className="w-full min-w-48" href={`${process.env.REACT_APP_API_URL}/file/${data.banner}`}  target="_blank" >
-                        <div className="flex flex-row justify-center items-start ">
-                            <span>
-                                Banner
-                            </span>
-                            <ExternalIcon/>
-                        </div>
-                    </a>
-           
-
-                </div>
-                <div className="flex w-1/6 flex-row-reverse">
-                    <button className="px-1 h-full" onClick={() => onDelete(data.id)} >
-                        <DeleteIcon/>
-                    </button>
-                    <EditBlogDialog setBlogsHandler={setBlogs} blogId={data.id}/>
-                </div>
-            </div>
-        )
-    }
 
     return (
         <div className="flex flex-col w-full space-y-5">
@@ -73,7 +47,7 @@ export const Blogs = (props) => {
                 <CreateBlogDialog setBlogsHandler={setBlogs}/>
             </div>
             {blogs.length === 0 ? null : 
-                <BlogTable data={blogs} setBlogsHandler={setBlogs} onDelete={onDelete}/>
+                <BlogTable data={blogs} updateBlogsListHandler={updateBlogsList} onDelete={onDelete}/>
             }
         </div>
     )

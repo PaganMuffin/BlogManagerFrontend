@@ -14,7 +14,6 @@ export const createBlog = async (event, data) => {
     event.preventDefault();
     const token = localStorage.getItem('token')
     const fd = new FormData()
-    fd.append("name", data.name) // slug
     fd.append("title", data.title) // blog title
 
     const f = await fetch(`${process.env.REACT_APP_API_URL}/api/blogs`, {
@@ -62,7 +61,6 @@ export const updateBlog = async (event, data, id) => {
     event.preventDefault();
     const token = localStorage.getItem('token')
     const fd = new FormData()
-    fd.append("name", data.name) // slug
     fd.append("title", data.title) // blog title
     fd.append("author_name", data.authorName)
     const f = await fetch(`${process.env.REACT_APP_API_URL}/api/blogs/${id}`, {

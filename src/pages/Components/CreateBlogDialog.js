@@ -20,7 +20,6 @@ export const CreateBlogDialog = ({setBlogsHandler}) => {
     
     const handleSubmit = async (e) => {
         const d = {
-            name: slugify(title),
             title: title
         }
         createBlog(e,d)
@@ -104,11 +103,7 @@ export const CreateBlogDialog = ({setBlogsHandler}) => {
                                                 const t = e.target.value 
                                                 setTitle(t)
                                             }}
-                                        />
-
-                                        <label className='mt-5 font-semibold'>Adres bloga</label>
-                                        <input disabled className='text-black rounded-md px-2 py-1 outline-none' value={`${document.location.origin}/blog/${slugify(title)}`}/>
-                            
+                                        />                        
 
                                         <input type="submit" value="Utwórz" className='py-1 bg-green-700 mt-4 rounded-md'/>
                                     </form>

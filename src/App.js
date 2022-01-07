@@ -28,7 +28,7 @@ const App = () => {
     <div className="w-screen h-screen overflow-hidden ">
         <Routes>
             <Route path="/dashboard/*" element={<Dashboard/>}/>
-            <Route path="/auth/:type" element={<Auth/>}/>
+            <Route path="/auth/:type/*" element={<Auth/>}/>
         </Routes>
     </div>
   );

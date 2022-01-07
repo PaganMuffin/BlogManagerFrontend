@@ -8,34 +8,34 @@ export const PostListTable = ({data}) => {
 
         return (
             <tr>
-            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                <div className="flex items-center text-sm font-medium text-gray-900">
+                <td className="px-6 py-  break-all">
+                    <div className="text-sm font-medium text-gray-900">
                         {data.title}
-                </div>
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap">
-                <div className="text-sm text-gray-900">{data.slug}</div>
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                <div className="text-sm text-gray-900">{data.created_at}</div>
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                <div className="text-sm text-gray-900">{data.updated_at}</div>
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <Link to={`/dashboard/posts/${params.blogId}/edit/${data.id}`} className="text-indigo-600 hover:text-indigo-900">
-                    Edytuj post
-                </Link>
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <button onClick={() => {
-                    deletePost(params.blogId, data.id)
-                        .then((r) => console.log(r))
-                        .then((r) => window.location.reload())
-                }} className="text-indigo-600 hover:text-indigo-900">
-                    Usuń post
-                </button>
-            </td>
+                    </div>
+                </td>
+                <td className="px-6 py-4 break-all">
+                    <div className="text-sm text-gray-900">{data.slug}</div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <div className="text-sm text-gray-900">{new Date(data.created_at*1000).toLocaleString('en-GB', { timeZone: 'UTC' })}</div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <div className="text-sm text-gray-900">{new Date(data.updated_at*1000).toLocaleString('en-GB', { timeZone: 'UTC' })}</div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <Link to={`/dashboard/posts/${params.blogId}/edit/${data.id}`} className="text-indigo-600 hover:text-indigo-900">
+                        Edytuj post
+                    </Link>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <button onClick={() => {
+                        deletePost(params.blogId, data.id)
+                            .then((r) => console.log(r))
+                            .then((r) => window.location.reload())
+                    }} className="text-indigo-600 hover:text-indigo-900">
+                        Usuń post
+                    </button>
+                </td>
             </tr>
         )
     }

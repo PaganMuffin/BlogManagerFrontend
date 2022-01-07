@@ -5,13 +5,11 @@ import { slugify } from '../../functions/utils'
 import { EditIcon } from '../../icons'
 
 
-export const EditBlogDialog = ({setBlogsHandler, blogId}) => {
+export const EditBlogDialog = ({updateBlogsListHandler, blogId}) => {
 
     const [isOpen, setIsOpen] = useState(false)
     const [title, setTitle] = useState("")
     const [authorName, setAuthorName] = useState("")
-    //slug -> slugify(title)
-    
 
 
     const closeModal = () => {
@@ -33,22 +31,14 @@ export const EditBlogDialog = ({setBlogsHandler, blogId}) => {
     
     const handleSubmit = async (e) => {
         const d = {
-            "name":slugify(title),
             "title":title,
             "authorName":authorName
         }
         updateBlog(e,d, blogId)
             .then((r) => {
                 alert(r.message)
-                
-                getBlogs()
-                .then((x) => {
-                    setBlogsHandler(x.message)
-                    closeModal()
-                })
-                .catch((e) => {
-                    alert(e)
-                })
+                updateBlogsListHandler()
+                closeModal()
             })
             .catch((e) => {
                 alert(e.message)
@@ -121,9 +111,6 @@ export const EditBlogDialog = ({setBlogsHandler, blogId}) => {
                                                 setTitle(t)
                                             }}
                                         />
-
-                                        <label className='mt-5 font-semibold'>Adres bloga</label>
-                                        <input disabled className='text-black rounded-md px-2 py-1 outline-none' value={`${document.location.origin}/blog/${slugify(title)}`}/>
                                         
                                         <label className='mt-5 font-semibold'>Pseudonim autora</label>
                                         <input

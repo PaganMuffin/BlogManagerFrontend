@@ -2,21 +2,24 @@ import { Link, useParams } from "react-router-dom"
 import { DeleteIcon, ExternalIcon } from "../../icons"
 import { EditBlogDialog } from "./EditBlogDialog"
 
-export const BlogTable = ({data, setBlogsHandler, onDelete}) => {
+export const BlogTable = ({data, updateBlogsListHandler, onDelete}) => {
 
     const Row = ({data}) => {
         return (
             <tr>
-                <td className="px-6 py-4 whitespace-nowrap">
+                <td className="px-6 py-4  break-all">
                     <div className="text-sm font-medium text-gray-900">
                         {data.title}
                     </div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
+                <td className="px-6 py-4  break-all">
                     <div className="text-sm text-gray-900">{data.author_name}</div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
+                <td className="px-6 py-4 break-all">
                     <div className="text-sm text-gray-900">{data.name}</div>
+                </td>
+                <td className="px-6 py-4 break-all">
+                    <div className="text-sm text-gray-900">{data.posts}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     <div className="text-sm text-gray-900">{new Date(data.created_at*1000).toLocaleString('en-GB', { timeZone: 'UTC' })}</div>
@@ -35,7 +38,7 @@ export const BlogTable = ({data, setBlogsHandler, onDelete}) => {
                     </a>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <EditBlogDialog setBlogsHandler={setBlogsHandler} blogId={data.id}/>
+                    <EditBlogDialog updateBlogsListHandler={updateBlogsListHandler} blogId={data.id}/>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <button className="text-sm text-gray-900" onClick={() => onDelete(data.id)} >
@@ -65,6 +68,9 @@ export const BlogTable = ({data, setBlogsHandler, onDelete}) => {
                         Adres
                     </th>
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Posty
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Utworzony
                     </th>
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -82,7 +88,8 @@ export const BlogTable = ({data, setBlogsHandler, onDelete}) => {
                     </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                    <Row data={data[0]}/>
+                    {data.map(x =><Row key={x.id} data={x}/> )}
+                    
                 </tbody>
                 </table>
             </div>

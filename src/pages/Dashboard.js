@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Route, Routes, useLocation, useNavigate, useParams} from "react-router-dom";
 import { logOut } from "../functions/auth";
 import { Blogs } from "./Blogs"
@@ -10,8 +10,15 @@ import { PostList } from "./Posts/PostList";
 
 export const Dashboard = () => {
     const nav = useNavigate()
-    const [activeTab, setActiveTab] = useState("blogs")
+    const [activeTab, setActiveTab] = useState("")
 
+
+    const location = useLocation()
+    const params = useParams()
+
+    useEffect(() => {
+        setActiveTab(params["*"].split("/")[0])
+    }, [location.pathname])
 
     const TabButton = ({ name, id}) => {
 

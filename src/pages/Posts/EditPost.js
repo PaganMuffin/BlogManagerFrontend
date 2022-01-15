@@ -5,6 +5,7 @@ import MDEditor from '@uiw/react-md-editor';
 import { slugify } from '../../functions/utils'
 import { FileCard } from "../Components/FileCard";
 import { getFiles } from "../../functions/files";
+import { XIcon } from "../../icons";
 
 export const EditPost = () => {
 
@@ -14,6 +15,8 @@ export const EditPost = () => {
     const [content, setContent] = useState("")
     const [files, setFiles] = useState([])
     const [filesInPost, setFilesInPost] = useState([])
+    const [tags, setTags] = useState([])
+    const [tag, setTag] = useState("")
 
     useEffect(() => {
         getPost(params)
@@ -22,6 +25,7 @@ export const EditPost = () => {
                 setContent(r.message.content)
                 setLoading(true)
                 setFilesInPost(r.message.files)
+                setTags(r.message.tags.map(x => x.name))
             })
             .then(() => {
                 getFiles()
@@ -30,7 +34,7 @@ export const EditPost = () => {
         
 
     }, [])
-
+    
     const addFileToPost = (id, filename) => {
         console.log(id, filename)
         const arr = [...filesInPost]
@@ -40,11 +44,39 @@ export const EditPost = () => {
 
     const editRandomPost = async () => {
             const d = {
-                title, content, filesInPost
+                title, content, filesInPost, tags
             }
             editPost(d, params)
                 .then(r => console.log(r))
                 .then(() => window.location.reload())
+    }
+
+    const Tag = ({name, idx}) => {
+        return (
+            <div className="flex items-center justify-center space-x-1 bg-slate-300 px-2 rounded-lg">
+                <span >{name}</span>
+                <button onClick={(e) => {
+                    e.preventDefault()
+                    const arr = [...tags]
+                    arr.splice(idx, 1)
+                    setTags(arr)
+                }}><XIcon/></button>
+            </div>
+        )
+    }
+
+    const FileName = ({name, idx}) => {
+        return (
+            <div className="flex items-center justify-center space-x-1 bg-slate-300 px-2 rounded-lg">
+                <span >{name}</span>
+                <button onClick={(e) => {
+                    e.preventDefault()
+                    const arr = [...filesInPost]
+                    arr.splice(idx, 1)
+                    setFilesInPost(arr)
+                }}><XIcon/></button>
+            </div>
+        )
     }
 
 
@@ -73,42 +105,54 @@ export const EditPost = () => {
                         onChange={setContent}
                     />
 
-                    <div className="bg-red-700 mt-5">
-                        {filesInPost.map((x,idx) => {
-                            console.log(x)
-                            return (
-                                <div >
-                                    <p onClick={() => {
-                                        const arr = [...filesInPost]
-                                        arr.splice(idx,1)
-                                        setFilesInPost(arr)
-                                    }} key={x.id}>{x.filename}</p>
-                                    
-                                </div>
-                            )
-                        })}
-                    </div>
-
-                    <label  className='font-semibold'>Wybierz pliki do dodania</label>
-                    <div className="grid gap-4 overflow-auto mt-5"
-                        style={{
-                            height:`calc(100vh - 200px)`,
-                            gridTemplateColumns: "repeat(auto-fill,minmax(200px,1fr))",
-                            gridAutoRows: "minmax(min-content, max-content)"
+                <label  className='font-semibold'>Tagi</label>
+                <div className="flex w-full space-x-2">
+                    <input 
+                        className="text-black rounded-md px-2 py-1 outline-none w-full"
+                        value={tag}
+                        onChange={(e) => {
+                            const t = e.target.value
+                            setTag(t)
                         }}
-                    >
-                        {files.map((x) => { 
-                            console.log(x.id)
-                            console.log(filesInPost)
-                            const dis = (filesInPost.findIndex(y => x.id === y.file_id) === -1 ? true : false)
-                            console.log(dis)
-                            return <FileCard key={x.id} data={x} addToPost={true} disableAddToPost={dis} addToPostHanler={addFileToPost} />
-                            
-                        })}
+                    />
+                    <button 
+                        className="w-max px-2 bg-green-600 rounded-md text-white"
+                        onClick={(e) => {
+                            e.preventDefault()
+                            const arr = [...tags]
+                            arr.push(tag)
+                            setTags(arr)
+                            setTag("")
+                        }}
+                    >Dodaj</button>
+                </div>
+
+                    <div className="flex flex-wrap w-full bg-white p-2 mt-2 rounded-lg gap-2">
+                        {tags.length == 0 ? <span className="invisible" >.</span> : null}
+                        {tags.map((x, idx) => <Tag name={x} idx={idx} />)}
                     </div>
+            
 
+                <label  className='font-semibold mt-2'>Załączone pliki</label>
+                <div className="flex flex-wrap w-full bg-white p-2 mt-2 rounded-lg gap-2">
+                    {filesInPost.length == 0 ? <span className="invisible" >.</span> : null}
+                    {filesInPost.map((x, idx) => <FileName name={x.filename} idx={idx} />)}
+                </div>
 
-                    <label>tagi</label>
+                <label  className='font-semibold mt-2'>Wybierz pliki do dodania</label>
+                <div className="grid gap-4 overflow-auto"
+                    style={{
+                        height:"100%",
+                        gridTemplateColumns: "repeat(auto-fill,minmax(200px,1fr))",
+                        gridAutoRows: "minmax(min-content, max-content)"
+                    }}
+                >
+                    {files.map((x) => { 
+                        const dis = (filesInPost.findIndex(y => x.id === y.id) === -1 ? true : false)
+                        return <FileCard key={x.id} data={x} addToPost={true} disableAddToPost={dis} addToPostHanler={addFileToPost} />
+                        
+                    })}
+                </div>
                 </form>
             </div>
             

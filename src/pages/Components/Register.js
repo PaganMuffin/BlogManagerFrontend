@@ -11,6 +11,7 @@ export const RegisterComponent = () => {
     const [confirmPassword, setConfirmPassword] = useState("")
 
     const register = async (event) => {
+        console.log("DASDA")
         if(password != confirmPassword){
             alert("Hasła się od siebie różnią")
             return;
@@ -35,7 +36,7 @@ export const RegisterComponent = () => {
     }
 
     return (
-        <div onSubmit={register} className="flex flex-col ">
+        <form onSubmit={register} className="flex flex-col ">
             <label className="mt-3 font-semibold">Adres e-mail</label>
             <input
                 className="rounded-md px-2 py-1 "
@@ -79,6 +80,6 @@ export const RegisterComponent = () => {
             >
                 Zarejestruj
             </button>
-        </div>
+        </form>
     )
 }

@@ -105,7 +105,7 @@ export const CreateBlogDialog = ({setBlogsHandler}) => {
                                             }}
                                         />                        
 
-                                        <input type="submit" value="Utwórz" className='py-1 bg-green-700 mt-4 rounded-md'/>
+                                        <button type="submit" value="Utwórz" className='py-1 bg-green-700 mt-4 rounded-md'/>
                                     </form>
                                     
                                     

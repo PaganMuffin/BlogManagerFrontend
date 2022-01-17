@@ -20,8 +20,8 @@ export const Auth = () => {
         <>
         {loading ? <div>Loading</div> : 
         
-        <div className="flex items-center justify-center w-full h-full ">
-            <div className="flex flex-col justify-center w-96 h-124 bg-blue-400 shadow-xl shadow-blue-600/50 rounded-lg ">
+        <div className="flex items-center justify-center w-full h-full text-white bg-slate-200">
+            <div className="flex flex-col justify-center w-96 h-124 bg-blue-500 shadow-xl shadow-blue-600/40 rounded-lg ">
                 <span className="text-center px-16 text-3xl py-8 font-bold ">
                     BlogManager
                 </span>
@@ -30,13 +30,15 @@ export const Auth = () => {
                     <button onClick={() => {
                         navigate("/auth/login")   
                         setActiveTab("login")
-                    }}    className={`w-1/2 h-12 font-semibold rounded-tr-lg ${activeTab === "login"       ? "bg-white bg-opacity-30" : ""}`}>Zaloguj</button>
+                    }}
+                    className={`w-1/2 h-12 font-semibold rounded-tr-lg ${activeTab === "login" ? "bg-slate-800" : ""}`}>Zaloguj</button>
                     <button onClick={() => {
                         navigate("/auth/register")
                         setActiveTab("register")
-                    }} className={`w-1/2 h-12 font-semibold rounded-tl-lg ${activeTab === "register" ? "bg-white bg-opacity-30" : ""}`}>Rejestracja</button>
+                    }}
+                    className={`w-1/2 h-12 font-semibold rounded-tl-lg ${activeTab === "register" ? "bg-slate-800 " : ""}`}>Rejestracja</button>
                 </div>
-                <div className="px-16 bg-white bg-opacity-30 h-full">
+                <div className="px-16 bg-slate-800 h-full rounded-b-lg">
                     
                     {activeTab === "login" ? <LoginComponent/> : <RegisterComponent/>}
 

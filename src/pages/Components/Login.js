@@ -54,7 +54,7 @@ export const LoginComponent = () => {
                 }}
             />
             <button
-                className="mt-7 w-full bg-white py-1 rounded-full font-bold hover:bg-slate-200 transition ease-out" 
+                className="mt-7 w-full bg-white bg-opacity-10 py-1 rounded-full font-bold hover:bg-opacity-20 transition ease-out" 
                 type="submit"
                 value="Zaloguj"
             >

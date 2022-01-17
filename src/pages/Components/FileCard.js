@@ -2,7 +2,7 @@ import { deleteFile } from "../../functions/files"
 import { BlogIcon, CopyIcon, DeleteIcon, DownloadIcon, EditIcon } from "../../icons"
 import { UpdateBannerDialog } from "./UpdateBannerDialog"
 
-export const FileCard = ({data, updateFile, addToPost, addToPostHanler, disableAddToPost}) => {
+export const FileCard = ({data, updateFile, addToPost, addToPostHanler, disableAddToPost, addFileAsBanner, addFileAsBannerHandler, canBeAddetAsBanner}) => {
 
     const img_ext = ["png", "avif", "gif", "jpg", "jpeg", "jfif", "pjpeg", "pjp", "webp", "bmp", "ico"]
     const ext = data.filename.split(".").pop()
@@ -18,7 +18,7 @@ export const FileCard = ({data, updateFile, addToPost, addToPostHanler, disableA
                 
             </div>
             <p className=" px-2 tracking-tight text-white truncate">{data.filename}</p>
-            {!addToPost ? 
+            {!addToPost && !addFileAsBanner ? 
                 <div className="flex flex-row items-center justify-center w-full space-x-5 my-1">
                     <button title="Kopiuj do schowka" onClick={() => {
                         navigator.clipboard.writeText(`${process.env.REACT_APP_API_URL}/file/${data.filename}`)
@@ -37,7 +37,22 @@ export const FileCard = ({data, updateFile, addToPost, addToPostHanler, disableA
                         <DownloadIcon/>
                     </a>
                 </div>
-            : 
+            :
+                addFileAsBanner ? 
+                
+                <div className="text-white w-full flex items-center justify-center">
+                    <button 
+                        disabled={!canBeAddetAsBanner}
+                        onClick={(e) => {
+                            e.preventDefault()
+                            addFileAsBannerHandler(data.id, data.filename)
+                        
+                        }} className={`p-1 m-2 rounded-lg ${!canBeAddetAsBanner ? "bg-gray-600" : "bg-green-600"}  `}>
+                        Ustaw jako banner
+                    </button>
+                </div>
+                
+                :
                 <div className="text-white w-full flex items-center justify-center">
                     <button 
                         disabled={!disableAddToPost}

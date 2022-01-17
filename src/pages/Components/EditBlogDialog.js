@@ -122,7 +122,9 @@ export const EditBlogDialog = ({updateBlogsListHandler, blogId}) => {
                                             }}
                                         />
 
-                                        <button type="submit" value="Zapisz" className='py-1 bg-green-700 mt-4 rounded-md'/>
+                                        <button type="submit"  className='py-1 bg-green-700 mt-4 rounded-md'>
+                                            Zapisz zmiany
+                                        </button>
                                     </form>
                                     
                                     

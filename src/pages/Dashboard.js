@@ -51,18 +51,20 @@ export const Dashboard = () => {
                     <TabButton name="Blogi" id="blogs"/>
                     <TabButton name="Posty" id="posts"/>
                     <TabButton name="Pliki" id="files"/>
-                    <TabButton name="Tagi" id="tags"/>
                     <TabButton name="Komentarze" id="comments"/>
                 </div>
                 <button onClick={logOut} className="mt-auto font-semibold bg-slate-700 py-5">
                     Wyloguj
                 </button>
             </div>
-            <div className="h-full w-full">
+            <div className="w-full h-screen">
                 <div className="flex justify-center items-center h-16 w-full bg-blue-500">
                     PANEL NA GGORZZE
+
                 </div>
-                <div className="px-10 mt-5 h-max">
+                <div className="px-10 mt-5 overflow-auto" style={{
+                    height:`calc(100vh - 100px)`,
+                }}>
                     <Routes>
                         <Route path="blogs" element={<Blogs/>}/>
                         <Route path="files" element={<Files/>}/>

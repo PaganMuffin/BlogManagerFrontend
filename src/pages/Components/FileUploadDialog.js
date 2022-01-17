@@ -82,7 +82,9 @@ export const FileUploadDialog = ({updateFile}) => {
                                         <input type="file" onChange={(e) => {
                                             setFile(e.target.files[0])
                                         }}/>
-                                        <input type="submit" value="Utwórz" className='py-1 bg-green-700 mt-4 rounded-md'/>
+                                        <button type="submit" className='py-1 bg-green-700 mt-4 rounded-md'>
+                                            Wyślij plik
+                                        </button>
                                     </form>
                                     
                                     

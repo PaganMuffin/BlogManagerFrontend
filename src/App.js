@@ -11,6 +11,19 @@ const App = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const params = useParams()
+/*     const [alerts, setAlerts] = useState([])
+    const [newAlert, setNewAlert] = "" */
+
+/*     const storageChangeHanler = () => {
+        const al =  localStorage.getItem("test")
+        updateAlers(al)
+    }
+
+    const updateAlers = (al) => {
+        let arr = [...alerts]
+        arr.push(al)
+        setAlerts(arr)
+    } */
 
     useEffect(() => {
         const token = localStorage.getItem('token')
@@ -23,6 +36,12 @@ const App = () => {
                     navigate('/auth/login');
                 }
             })
+        
+/*         const event = new Event("storage_change")
+        window.custom_event = event
+        window.addEventListener("storage_change", storageChangeHanler)
+        return () => window.removeEventListener("storage_change", storageChangeHanler)
+ */
     },[])
   return (
     <div className="w-screen h-screen overflow-hidden ">
@@ -30,6 +49,7 @@ const App = () => {
             <Route path="/dashboard/*" element={<Dashboard/>}/>
             <Route path="/auth/:type/*" element={<Auth/>}/>
         </Routes>
+
     </div>
   );
 }

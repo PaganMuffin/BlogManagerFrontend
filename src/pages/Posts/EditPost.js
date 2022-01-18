@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { editPost, getPost } from "../../functions/posts"
 import MDEditor from '@uiw/react-md-editor';
-import { slugify } from '../../functions/utils'
 import { FileCard } from "../Components/FileCard";
 import { getFiles } from "../../functions/files";
 import { XIcon } from "../../icons";
@@ -10,6 +9,7 @@ import { XIcon } from "../../icons";
 export const EditPost = () => {
 
     const params = useParams()
+    const navigator = useNavigate()
     const [loading, setLoading] = useState(false)
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
@@ -55,8 +55,9 @@ export const EditPost = () => {
                 title, content, filesInPost, tags, banner: banner.filename
             }
             editPost(d, params)
-                .then(r => console.log(r))
-                .then(() => window.location.reload())
+                .then(r => alert(r.message))
+                .then(() => navigator("/dashboard/posts"))
+                .catch(r => alert(r.message))
     }
 
     const Tag = ({name, idx}) => {

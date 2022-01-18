@@ -1,5 +1,5 @@
-import { useDebugValue, useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 import { createPost } from "../../functions/posts"
 import MDEditor from '@uiw/react-md-editor';
 import { getFiles } from "../../functions/files";
@@ -7,6 +7,8 @@ import { FileCard } from "../Components/FileCard";
 import { DeleteIcon, XIcon } from "../../icons";
 
 export const NewPost = () => {
+
+    const navigator = useNavigate()
 
     const params = useParams()
     const [blogId, setBlogId] = useState("")
@@ -41,7 +43,9 @@ export const NewPost = () => {
             title, content, filesInPost, tags, banner: banner.filename
         }
         createPost(d, blogId)
-            .then(r => console.log(r))
+            .then(r => alert(r.message))
+            .then((r) => navigator("/dashboard/posts"))
+            .catch(r => alert(r.message))
     }
 
     const Tag = ({name, idx}) => {

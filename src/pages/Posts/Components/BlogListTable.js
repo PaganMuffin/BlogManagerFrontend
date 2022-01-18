@@ -17,7 +17,7 @@ export const BlogListTable = ({data}) => {
                 <div className="text-sm text-gray-900">{data.author_name}</div>
             </td>
             <td className="px-6 py-4 break-all">
-                <div className="text-sm text-gray-900">{data.name}</div>
+                <div className="text-sm text-gray-900">{data.posts}</div>
             </td>
             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                 <div className="text-sm text-gray-900">{new Date(data.created_at*1000).toLocaleString('en-GB', { timeZone: 'UTC' })}</div>
@@ -55,7 +55,7 @@ export const BlogListTable = ({data}) => {
                         Autor
                     </th>
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Adres
+                        Posty
                     </th>
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Utworzony

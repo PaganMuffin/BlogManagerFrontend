@@ -4,6 +4,8 @@ import { Auth } from './pages/Auth';
 import { Dashboard } from './pages/Dashboard';
 import { useNavigate } from 'react-router-dom';
 import { tokenValidate } from './functions/auth';
+import { BlogView } from './pages/BlogView';
+import { PostView } from './pages/PostView';
 
 
 const App = () => {
@@ -29,11 +31,13 @@ const App = () => {
         const token = localStorage.getItem('token')
         tokenValidate(token)
             .then(x => {
-                if(x){
-                    if(location.pathname.split("/")[1] !== "dashboard")
-                        navigate('/dashboard/blogs');
-                } else {
-                    navigate('/auth/login');
+                const loc = location.pathname.split("/")[1]
+                if(x &&  loc === "auth"){
+                    //add option with params redirect
+                    navigate('/dashboard/blogs');
+                }
+                if(!x && loc === "dashboard"){
+                    navigate('/auth/login')
                 }
             })
         
@@ -48,6 +52,9 @@ const App = () => {
         <Routes>
             <Route path="/dashboard/*" element={<Dashboard/>}/>
             <Route path="/auth/:type/*" element={<Auth/>}/>
+            <Route path="/blog/:blogId/:postId" element={<PostView/>}/>
+            <Route path="/blog/:blogId" element={<BlogView/>}/>
+            <Route path="*" element={<div>404</div>}/>
         </Routes>
 
     </div>

@@ -16,7 +16,37 @@ export const postComment = async (d, params) => {
         throw new Error((await f.json()).message)
 }
 
-export const getComments = async (params) => {
-    const f = await fetch(`${process.env.REACT_APP_API_URL}/api/comments/${params.blogId}/${params.postId}`)
-    return await f.json()
+export const getComments = async (params, auth = false) => {
+    console.log(auth)
+    if(!auth){
+        const f = await fetch(`${process.env.REACT_APP_API_URL}/api/comments/${params.blogId}/${params.postId}`)
+        return await f.json()
+    } else {
+
+        const token = localStorage.getItem("token")
+
+        const f = await fetch(`${process.env.REACT_APP_API_URL}/api/comments/${params.blogId}/${params.postId}`, {
+            headers:{
+                Authorization:`Bearer ${token}`
+            }
+        })
+        const j = await f.json()
+        return j
+    }
+}
+
+
+export const deleteComment = async (params, commentId) => {
+    const token = localStorage.getItem("token")
+
+    const f = await fetch(`${process.env.REACT_APP_API_URL}/api/comments/${params.blogId}/${params.postId}/${commentId}`, {
+        method:"DELETE",
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    })
+    if(f.ok)
+        return await f.json()
+    else
+        throw new Error((await f.json()).message)
 }

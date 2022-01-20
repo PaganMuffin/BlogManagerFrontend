@@ -36,19 +36,32 @@ const App = () => {
         }
         
     },[])
-  return (
-    <div className="w-screen h-screen overflow-hidden ">
-        {!ready ? null :  
-            <Routes>
-                <Route path="/dashboard/*" element={<Dashboard/>}/>
-                <Route path="/auth/:type/*" element={<Auth/>}/>
-                <Route path="/blog/:blogId/:postId" element={<PostView/>}/>
-                <Route path="/blog/:blogId" element={<BlogView/>}/>
-                <Route path="*" element={<div>404</div>}/>
-            </Routes>
-        }
-    </div>
-  );
+
+
+    const Red = () => {
+        useEffect(() => {
+            navigate('/auth/login')
+        },[])
+        return (
+            <div>
+                Redirecting...
+            </div>
+        )
+    }
+
+    return (
+        <div className="w-screen h-screen overflow-hidden ">
+            {!ready ? null :  
+                <Routes>
+                    <Route path="/dashboard/*" element={<Dashboard/>}/>
+                    <Route path="/auth/:type/*" element={<Auth/>}/>
+                    <Route path="/blog/:blogId/:postId" element={<PostView/>}/>
+                    <Route path="/blog/:blogId" element={<BlogView/>}/>
+                    <Route path="*" element={<Red/>}/>
+                </Routes>
+            }
+        </div>
+    );
 }
 
 export default App;

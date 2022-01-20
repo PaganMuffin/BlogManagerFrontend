@@ -2,6 +2,9 @@ import { useEffect, useState } from "react"
 import { Route, Routes, useLocation, useNavigate, useParams} from "react-router-dom";
 import { logOut } from "../functions/auth";
 import { Blogs } from "./Blogs"
+import { Comments } from "./Comments/Comments";
+import { CommentsBlogPosts } from "./Comments/CommentsBlogPosts";
+import { CommentsBlogs } from "./Comments/CommentsBlogs";
 import { Files } from "./Files";
 import { BlogList } from "./Posts/BlogList";
 import { EditPost } from "./Posts/EditPost";
@@ -73,6 +76,10 @@ export const Dashboard = () => {
                         <Route path="/posts/:blogId/new" element={<NewPost/>}/>
                         <Route path="/posts/:blogId" element={<PostList/>}/>
                         <Route path="/posts/:blogId/edit/:postId" element={<EditPost/>}/>
+
+                        <Route path="/comments" element={<CommentsBlogs/>}/>
+                        <Route path="/comments/:blogId" element={<CommentsBlogPosts/>}/>
+                        <Route path="/comments/:blogId/:postId" element={<Comments/>}/>
 
                     </Routes>
 

@@ -13,50 +13,40 @@ const App = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const params = useParams()
-/*     const [alerts, setAlerts] = useState([])
-    const [newAlert, setNewAlert] = "" */
-
-/*     const storageChangeHanler = () => {
-        const al =  localStorage.getItem("test")
-        updateAlers(al)
-    }
-
-    const updateAlers = (al) => {
-        let arr = [...alerts]
-        arr.push(al)
-        setAlerts(arr)
-    } */
 
     useEffect(() => {
+        const loc = location.pathname.split("/")[1]
         const token = localStorage.getItem('token')
-        tokenValidate(token)
-            .then(x => {
-                const loc = location.pathname.split("/")[1]
-                if(x &&  loc === "auth"){
-                    //add option with params redirect
-                    navigate('/dashboard/blogs');
-                }
-                if(!x && loc === "dashboard"){
-                    navigate('/auth/login')
-                }
-            })
+        if(loc === "dashboard" || loc === "auth"){
+            tokenValidate(token)
+                .then(x => {
+                    if(x && loc === "auth"){
+                        //add option with params redirect
+                        setReady(true)
+                        navigate(`/dashboard/blogs`);
+                    } else if(!x && loc === "dashboard"){
+                        setReady(true)
+                        navigate('/auth/login')
+                    } else {
+                        setReady(true)
+                    }
+                })
+        } else {
+            setReady(true)
+        }
         
-/*         const event = new Event("storage_change")
-        window.custom_event = event
-        window.addEventListener("storage_change", storageChangeHanler)
-        return () => window.removeEventListener("storage_change", storageChangeHanler)
- */
     },[])
   return (
     <div className="w-screen h-screen overflow-hidden ">
-        <Routes>
-            <Route path="/dashboard/*" element={<Dashboard/>}/>
-            <Route path="/auth/:type/*" element={<Auth/>}/>
-            <Route path="/blog/:blogId/:postId" element={<PostView/>}/>
-            <Route path="/blog/:blogId" element={<BlogView/>}/>
-            <Route path="*" element={<div>404</div>}/>
-        </Routes>
-
+        {!ready ? null :  
+            <Routes>
+                <Route path="/dashboard/*" element={<Dashboard/>}/>
+                <Route path="/auth/:type/*" element={<Auth/>}/>
+                <Route path="/blog/:blogId/:postId" element={<PostView/>}/>
+                <Route path="/blog/:blogId" element={<BlogView/>}/>
+                <Route path="*" element={<div>404</div>}/>
+            </Routes>
+        }
     </div>
   );
 }

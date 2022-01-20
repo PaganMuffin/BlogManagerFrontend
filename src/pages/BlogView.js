@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react"
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom"
-
+import {ChevronLeft} from '../icons'
 
 function useQuery() {
     const { search } = useLocation();
@@ -13,20 +13,35 @@ export const BlogView = () => {
     const navigator = useNavigate()
     const params = useParams()
     const query = useQuery();
+    const location = useLocation()
     const [data, setData] = useState(null)
     const [page, setPage] = useState(1)
     
+    useEffect(() => {
+        const prev = query.toString()
+
+        let p = page;
+        if(query.has("page")){
+            if(!isNaN(Number(query.get('page')))){
+                p = Number(query.get('page'))
+            }
+            
+        } else {
+            query.append("page", p)
+        }
+
+        setPage(p)
+
+    },[])
 
     useEffect(() => {
-        const p = Number(query.get("page")) || page
-        setPage(p)
-        navigator(`/blog/${params.blogId}?page=${p}`)
-        fetch(`${process.env.REACT_APP_API_URL}/api/blog/${params.blogId}?page=${p}`)
+        fetch(`${process.env.REACT_APP_API_URL}/api/blog/${params.blogId}?${query.toString()}`)
             .then(res => res.json())
             .then(res => {
                 setData(res.message)
             })
-    }, [])
+    }, [location])
+
 
     const Post = ({title, banner, slug}) => {
         return (
@@ -42,8 +57,11 @@ export const BlogView = () => {
     return (
         <div className="flex w-full h-full bg-slate-200 overflow-auto p-5 justify-center">
             {data === null ? null : 
-            <div className="md:max-w-5xl flex flex-col gap-5 ">
-                <img className="max-h-96 w-full object-cover rounded-lg" src={`${process.env.REACT_APP_API_URL}/file/${data.banner}`}></img>
+            <div className="w-5xl flex flex-col gap-5 ">
+                <div className="flex flex-row gap-5 items-center h-auto font-semibold text-3xl bg-slate-500 text-white p-2 rounded-lg">
+                    <Link to={`/blog/${params.blogId}?page=1`} >{data.title}</Link>
+                </div>
+                <img className="max-h-96 w-full object-cover rounded-lg " src={`${process.env.REACT_APP_API_URL}/file/${data.banner}`}></img>
                 <div className="grid gap-4"
                     style={{
                         gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",

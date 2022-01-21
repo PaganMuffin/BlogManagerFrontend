@@ -17,16 +17,18 @@ const App = () => {
     useEffect(() => {
         const loc = location.pathname.split("/")[1]
         const token = localStorage.getItem('token')
+        console.log(loc)
         if(loc === "dashboard" || loc === "auth"){
             tokenValidate(token)
                 .then(x => {
+                    console.log(x)
                     if(x && loc === "auth"){
                         //add option with params redirect
-                        setReady(true)
                         navigate(`/dashboard/blogs`);
-                    } else if(!x && loc === "dashboard"){
                         setReady(true)
+                    } else if(!x && loc === "dashboard"){
                         navigate('/auth/login')
+                        setReady(true)
                     } else {
                         setReady(true)
                     }

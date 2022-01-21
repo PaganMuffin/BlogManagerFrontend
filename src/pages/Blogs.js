@@ -16,7 +16,7 @@ export const Blogs = (props) => {
                 setBlogs(x.message)
             })
             .catch((e) => {
-                alert(e)
+                //alert(e)
             })
     }
 

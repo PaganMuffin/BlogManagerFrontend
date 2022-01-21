@@ -30,20 +30,19 @@ export const LoginComponent = () => {
         <form onSubmit={login} className="flex flex-col">
             <label className="mt-3 font-semibold">Adres e-mail</label>
             <input
-                className="rounded-md px-2 py-1 "
+                className="rounded-md px-2 py-1 text-black"
                 type="email" 
                 id="email" 
                 required 
                 placeholder="admin@admin.com"
                 value={email}
                 onChange={(e) => {
-                    console.log(e.target.value)
                     setEmail(e.target.value)
                 }}
             />
             <label className="mt-3 font-semibold">Hasło</label>
             <input
-                className="rounded-md px-2 py-1 outline-none"
+                className="rounded-md px-2 py-1 outline-none text-black"
                 type="password" 
                 id="password" 
                 required 

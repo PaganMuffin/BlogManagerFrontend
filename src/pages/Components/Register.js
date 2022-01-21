@@ -39,7 +39,7 @@ export const RegisterComponent = () => {
         <form onSubmit={register} className="flex flex-col ">
             <label className="mt-3 font-semibold">Adres e-mail</label>
             <input
-                className="rounded-md px-2 py-1 "
+                className="rounded-md px-2 py-1 text-black"
                 type="email" 
                 id="email" 
                 required 
@@ -51,7 +51,7 @@ export const RegisterComponent = () => {
             />
             <label className="mt-3 font-semibold">Hasło</label>
             <input
-                className="rounded-md px-2 py-1 outline-none"
+                className="rounded-md px-2 py-1 outline-none text-black"
                 type="password" 
                 id="password" 
                 required 
@@ -63,7 +63,7 @@ export const RegisterComponent = () => {
             />
             <label className="mt-3 font-semibold">Potwierdź hasło</label>
             <input
-                className="rounded-md px-2 py-1 outline-none"
+                className="rounded-md px-2 py-1 outline-none text-black"
                 type="password" 
                 id="confirm_password" 
                 required 

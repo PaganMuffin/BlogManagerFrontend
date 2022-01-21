@@ -15,6 +15,7 @@ export const PostView = () => {
             .then(res => res.json())
             .then(res => {
                 setPost(res.message)
+                document.title = res.message.title
 
             })
     },[])

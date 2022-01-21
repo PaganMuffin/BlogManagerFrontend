@@ -18,8 +18,6 @@ export const BlogView = () => {
     const [page, setPage] = useState(1)
     
     useEffect(() => {
-        const prev = query.toString()
-
         let p = page;
         if(query.has("page")){
             if(!isNaN(Number(query.get('page')))){
@@ -39,6 +37,7 @@ export const BlogView = () => {
             .then(res => res.json())
             .then(res => {
                 setData(res.message)
+                document.title = res.message.title
             })
     }, [location])
 

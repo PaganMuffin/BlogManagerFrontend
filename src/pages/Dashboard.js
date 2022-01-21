@@ -20,6 +20,10 @@ export const Dashboard = () => {
     const params = useParams()
 
     useEffect(() => {
+        document.title = "BlogManager - Dashboard" 
+    },[])
+
+    useEffect(() => {
         setActiveTab(params["*"].split("/")[0])
     }, [location.pathname])
 
@@ -56,15 +60,18 @@ export const Dashboard = () => {
                     <TabButton name="Pliki" id="files"/>
                     <TabButton name="Komentarze" id="comments"/>
                 </div>
-                <button onClick={logOut} className="mt-auto font-semibold bg-slate-700 py-5">
+                <button onClick={() => {
+                    logOut()
+                        .then((s) => {
+                            if(s) nav("/")
+                        })
+
+                }} className="mt-auto font-semibold bg-slate-700 py-5">
                     Wyloguj
                 </button>
             </div>
             <div className="w-full h-screen">
-                <div className="flex justify-center items-center h-16 w-full bg-blue-500">
-                    PANEL NA GGORZZE
-
-                </div>
+                <div className="flex justify-center items-center h-16 w-full bg-blue-500 "/>
                 <div className="px-10 mt-5 overflow-auto" style={{
                     height:`calc(100vh - 100px)`,
                 }}>

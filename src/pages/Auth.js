@@ -12,6 +12,10 @@ export const Auth = () => {
     const [activeTab, setActiveTab] = useState('login')
 
     useEffect(() => {
+        document.title = "BlogManager - Auth" 
+    },[])
+
+    useEffect(() => {
         setActiveTab(params.type)
     },[location.pathname])
 

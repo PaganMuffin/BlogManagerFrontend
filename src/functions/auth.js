@@ -17,7 +17,6 @@ export const logOut = async () => {
             "Authorization": "Bearer " + token
         }
     })
-    if (f.ok) window.location.reload()
-
+    
     return f.ok
 }

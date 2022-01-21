@@ -7,7 +7,11 @@ export const getBlogs = async () => {
             "Authorization": "Bearer " + token
         }
     })
-    return await f.json()
+    try{
+        return await f.json()
+    } catch(e) {
+        return null
+    }
 }
 
 export const createBlog = async (event, data) => {
